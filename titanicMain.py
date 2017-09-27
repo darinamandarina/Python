@@ -36,7 +36,7 @@ def get_nubmer_of_survived(data = None):
     surv_int = survived[1]
     return percentage(surv_int, surv_int+died_int)
 
-data = pd.read_csv('titanic.csv', index_col='PassengerId')
+data = pd.read_csv('train.csv', index_col='PassengerId')
 
 surv_int = get_nubmer_of_survived(data['Survived'])
 dead  = total_num - surv_int
@@ -71,19 +71,44 @@ print((pearson_int[0, 1]))
   Какие доли составляли пассажиры первого, второго, третьего класса?
 """
 
-classes = data['Pclass'].value_counts()
+pclass= data['Pclass']
+classes= pclass.value_counts()
 thirdClass = classes[3]
 secondClass = classes[2]
 firstClass = classes[1]
 totalCount = total_num
+
+
 def partof(smth, total):
     return smth/total
+
 firstClassPart = firstClass/total_num
 secondClassPart = secondClass/total_num
 thirdClassPart = partof(thirdClass,totalCount)
-#print(classes)
+
 print(pd.DataFrame([{'1st class':firstClass, '2nd class':secondClass, '3rd class':thirdClass},{'1st class':firstClassPart, '2nd class':secondClassPart, '3rd class':thirdClassPart}]))
 
-""" """
-""" """
+"""
+Выясните есть ли корреляция (вычислите коэффициент корреляции Пирсона) между:
+    возрастом и параметром survival;
+    полом человека и параметром survival;
+    классом, в котором пассажир ехал, и параметром survival.
+"""
+age = data['Age']
+sex = data['Sex']
+classes = pclass
+
+def corrParamSurv(param):
+    survived = data['Survived']
+    return np.corrcoef(param, survived)
+
+print(corrParamSurv(classes))  # есть корреляция
+# print(corrParamSurv(sex))  # нет корреляции
+# print(corrParamSurv(age))  # нет корреляции
+
+
+"""
+
+"""
+
 """ """
