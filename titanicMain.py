@@ -108,7 +108,11 @@ print(corrParamSurv(classes))  # есть корреляция
 
 
 """
-
+Подсчитайте сколько пассажиров, которые выжили, загрузилось на борт в различных портах
 """
+port = data['Embarked']
+#print(data.head())
+countedPassengersByPorts = data.groupby(['Embarked', 'Sex'])['Survived'].count()
+print(countedPassengersByPorts)
 
 """ """
