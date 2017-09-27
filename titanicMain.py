@@ -30,13 +30,15 @@ total_num = male + female
 """
 Посчитайте долю погибших на параходе (число и процент)?
 """
+print(data.groupby(['Sex'])['Survived'].count())
+
 def get_nubmer_of_survived(data = None):
     survived = data.value_counts()
     died_int = survived[0]
     surv_int = survived[1]
     return percentage(surv_int, surv_int+died_int)
 
-data = pd.read_csv('train.csv', index_col='PassengerId')
+data = pd.read_csv('train.csv')
 
 surv_int = get_nubmer_of_survived(data['Survived'])
 dead  = total_num - surv_int
@@ -110,9 +112,7 @@ print(corrParamSurv(classes))  # есть корреляция
 """
 Подсчитайте сколько пассажиров, которые выжили, загрузилось на борт в различных портах
 """
-port = data['Embarked']
-#print(data.head())
-countedPassengersByPorts = data.groupby(['Embarked', 'Sex'])['Survived'].count()
+countedPassengersByPorts = data.groupby(['Embarked'])['Survived'].count()
 print(countedPassengersByPorts)
 
 """ """
